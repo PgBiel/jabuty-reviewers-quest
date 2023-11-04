@@ -1,7 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   // generate templates for Flask
-  outputDir: "../template/vue",
+  outputDir: "../templates/vue",
 
   // entrypoint template
   // indexPath: "index.html",

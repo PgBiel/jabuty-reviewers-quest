@@ -3,7 +3,7 @@
 
 from flask import Flask, render_template, jsonify
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates")
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')

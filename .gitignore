@@ -139,7 +139,7 @@ venv.bak/
 /site
 
 # generated Vue assets
-/template/vue
+/templates/vue
 /static/vue
 
 # mypy
