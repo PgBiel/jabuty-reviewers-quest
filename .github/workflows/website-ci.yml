@@ -33,7 +33,10 @@ jobs:
         npm --version
         node --version
     - name: ➡️ Move to frontend directory
-      run: cd frontend
+      run: |
+        cd frontend
+        pwd
+        ls -ltah
     - name: 📥 Install dependencies
       run: npm ci
     - name: 🛠️ Build frontend
