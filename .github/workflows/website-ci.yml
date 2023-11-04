@@ -1,0 +1,63 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Website CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  frontend:
+    name: "Frontend Test"
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x] # [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: 📥 Install Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: 👀 Check setup
+      run: |
+        npm --version
+        node --version
+    - name: 📥 Install dependencies
+      run: |
+        cd frontend
+        npm ci
+    - name: 🛠️ Build frontend
+      run: |
+        npm run build --if-present
+        ls ../templates/vue/index.html # fail if template didn't compile
+        ls ../static/vue # fail if assets weren't generated
+    - name: ✅ Run tests
+      run: echo No tests available. # npm test
+  backend:
+    name: "Backend Test"
+
+    runs-on: ubuntu-latest
+
+    env:
+      SRC_FOLDER: reviewers_quest
+      POETRY_VERSION: 1.7.0
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: 📥 Install and configure Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: ${{ env.POETRY_VERSION }}
+    - name: 👀 Check setup
+      run: poetry --version
+    - name: ✅ Run ruff linter
+      run: poetry run ruff check ${SRC_FOLDER}
