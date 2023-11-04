@@ -20,6 +20,10 @@ jobs:
         node-version: [18.x] # [14.x, 16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
+    defaults:
+      run:
+        working-directory: ./frontend
+
     steps:
     - uses: actions/checkout@v3
     - name: 📥 Install Node.js ${{ matrix.node-version }}
@@ -30,18 +34,11 @@ jobs:
         cache-dependency-path: 'frontend/package-lock.json'
     - name: 👀 Check setup
       run: |
+        echo "working directory: $(pwd)"
         npm --version
         node --version
-    - name: ➡️ Move to frontend directory
-      run: |
-        cd frontend
-        pwd
-        ls -ltah
     - name: 📥 Install dependencies
-      run: |
-        pwd
-        ls -ltah
-        npm ci
+      run: npm ci
     - name: 🛠️ Build frontend
       run: |
         npm run build --if-present
