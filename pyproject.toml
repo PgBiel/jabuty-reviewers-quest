@@ -14,6 +14,9 @@ flask-cors = "^4.0.0"
 [tool.poetry.scripts]
 app = "reviewers_quest.app:main"
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.4"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
