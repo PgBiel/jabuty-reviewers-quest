@@ -138,6 +138,10 @@ venv.bak/
 # mkdocs documentation
 /site
 
+# generated Vue assets
+/template/vue
+/static/vue
+
 # mypy
 .mypy_cache/
 .dmypy.json
