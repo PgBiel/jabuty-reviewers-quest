@@ -38,7 +38,10 @@ jobs:
         pwd
         ls -ltah
     - name: 📥 Install dependencies
-      run: npm ci
+      run: |
+        pwd
+        ls -ltah
+        npm ci
     - name: 🛠️ Build frontend
       run: |
         npm run build --if-present
