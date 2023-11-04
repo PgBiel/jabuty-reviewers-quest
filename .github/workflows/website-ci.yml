@@ -22,6 +22,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: ➡️ Move to frontend directory
+      run: cd frontend
     - name: 📥 Install Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -32,9 +34,7 @@ jobs:
         npm --version
         node --version
     - name: 📥 Install dependencies
-      run: |
-        cd frontend
-        npm ci
+      run: npm ci
     - name: 🛠️ Build frontend
       run: |
         npm run build --if-present
@@ -42,22 +42,34 @@ jobs:
         ls ../static/vue # fail if assets weren't generated
     - name: ✅ Run tests
       run: echo No tests available. # npm test
+
   backend:
     name: "Backend Test"
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        poetry-version: [1.7.0]
+        python-version: [3.11]
+
     env:
-      SRC_FOLDER: reviewers_quest
-      POETRY_VERSION: 1.7.0
+      BACKEND_SRC_FOLDER: reviewers_quest
 
     steps:
     - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "${{ matrix.python-version }}"
     - name: 📥 Install and configure Poetry
       uses: snok/install-poetry@v1
       with:
-        version: ${{ env.POETRY_VERSION }}
+        version: ${{ strategy.matrix.poetry-version }}
     - name: 👀 Check setup
-      run: poetry --version
+      run: |
+        python3 --version
+        poetry --version
     - name: ✅ Run ruff linter
-      run: poetry run ruff check ${SRC_FOLDER}
+      run: poetry run ruff check ${BACKEND_SRC_FOLDER}
+    - name: ✅ Run tests
+      run: echo No tests available.
