@@ -15,5 +15,5 @@ Reviewer's Quest (Jabuty's project)
 ## Checking your code
 
 - For the backend: after installing (dev) dependencies, run:
-    1. `poetry run ruff format reviewers_quest` to format your code (use `--check` to just check if it's formatted)
-    2. `poetry run ruff check reviewers_quest` to lint your code
+    1. `poetry run format` to format your code (add `--check` to just check if it's formatted or not)
+    2. `poetry run check` to lint your code
