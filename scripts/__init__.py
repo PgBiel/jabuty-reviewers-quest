@@ -1,22 +1,12 @@
-import sys
+import os
 import subprocess
+import sys
 
-def _execute(*args, exit=True, inherit_args=True):
+def _execute(*args, inherit_args=True):
     if inherit_args:
         args = (*args, *sys.argv[1:])
     print(f"-- Script: running '{' '.join(args)}' --")
-    try:
-        returncode = subprocess.run(args).returncode
-        if exit:
-            sys.exit(returncode)
-    except KeyboardInterrupt:
-        if exit:
-            sys.exit(0)
-        raise
-    except:
-        if exit:
-            sys.exit(1)
-        raise
+    os.execvp(args[0], args)
 
 backend_src_dir = "reviewers_quest"
 
