@@ -18,8 +18,7 @@ Reviewer's Quest (Jabuty's project)
 
 - For the frontend: after installing (dev) dependencies, run:
     1. `npm run lint` to lint your code and check formatting
-        - If there are formatting errors / other fixable errors, run `eslint --fix .` to fix them
-        - The step above requires running `npm install -g eslint@8` first to install the `eslint` command.
+        - If there are errors (such as formatting errors), run `npm run fix` to fix them.
     2. `npm run build` to check if the frontend builds
 - For the backend: after installing (dev) dependencies, run:
     1. `poetry run format` to format your code (add `--check` to just check if it's formatted or not)
