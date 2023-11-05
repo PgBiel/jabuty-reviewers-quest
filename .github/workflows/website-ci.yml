@@ -78,5 +78,7 @@ jobs:
         poetry run ruff --version
     - name: ✅ Run ruff linter
       run: poetry run ruff check ${BACKEND_SRC_FOLDER}
+    - name: ✅ Run ruff formatter
+      run: poetry run ruff format --check ${BACKEND_SRC_FOLDER}
     - name: ✅ Run tests
       run: echo No tests available.
