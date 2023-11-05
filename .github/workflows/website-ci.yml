@@ -39,9 +39,11 @@ jobs:
         node --version
     - name: 📥 Install dependencies
       run: npm ci
+    - name: ✅ Lint and check formatting
+      run: npm run lint
     - name: 🛠️ Build frontend
       run: |
-        npm run build --if-present
+        npm run build
         ls ../templates/vue/index.html # fail if template didn't compile
         ls ../static/vue # fail if assets weren't generated
     - name: ✅ Run tests
