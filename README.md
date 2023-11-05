@@ -4,7 +4,9 @@ Reviewer's Quest (Jabuty's project)
 ## Building the frontend
 
 1. Ensure you have `npm` installed
-2. `cd frontend && npm run build`
+2. `cd frontend` (go to the `frontend` folder)
+3. Run `npm install` once to install dependencies
+4. Run `npm run build`
 
 ## Running the backend
 
@@ -14,6 +16,11 @@ Reviewer's Quest (Jabuty's project)
 
 ## Checking your code
 
+- For the frontend: after installing (dev) dependencies, run:
+    1. `npm run lint` to lint your code and check formatting
+        - If there are formatting errors / other fixable errors, run `eslint --fix .` to fix them
+        - The step above requires running `npm install -g eslint@8` first to install the `eslint` command.
+    2. `npm run build` to check if the frontend builds
 - For the backend: after installing (dev) dependencies, run:
     1. `poetry run format` to format your code (add `--check` to just check if it's formatted or not)
     2. `poetry run check` to lint your code
