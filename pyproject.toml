@@ -15,6 +15,7 @@ flask-cors = "^4.0.0"
 app = "scripts:run"
 format = "scripts:format"
 check = "scripts:check"
+regendb = "scripts:regendb"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.4"
