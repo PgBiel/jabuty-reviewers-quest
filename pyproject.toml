@@ -19,6 +19,12 @@ check = "scripts:check"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.4"
 
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+task-tags = ["TODO", "FIXME"]
+extend-select = ["ANN001", "ANN201", "ANN202", "ANN204", "ANN205", "ANN206"]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
