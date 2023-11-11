@@ -19,6 +19,7 @@ regendb = "scripts:regendb"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.4"
+mypy = "^1.7.0"
 
 [tool.ruff]
 line-length = 120
