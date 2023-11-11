@@ -26,6 +26,10 @@ def format() -> None:
 def check() -> None:
     _execute("poetry", "run", "ruff", "check", backend_src_dir)
 
+# Runs mypy to typecheck Python code.
+def typecheck() -> None:
+    _execute("poetry", "run", "mypy", "-p", backend_src_dir)
+
 # Regenerates the database.
 # CAUTION: leads to LOSS OF DATA.
 def regendb() -> None:
