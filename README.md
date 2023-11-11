@@ -49,3 +49,6 @@ JABRQ_DATABASE=$HOME/Downloads/database.db poetry run app
 - For the backend: after installing (dev) dependencies, run:
     1. `poetry run format` to format your code (add `--check` to just check if it's formatted or not)
     2. `poetry run check` to lint your code (add `--fix` to automatically fix fixable problems)
+    3. `poetry run typecheck` to check your code for type errors **(EXPERIMENTAL)**
+        - **NOTE:** This last step is still experimental and not currently checked in CI. Don't worry too much if you
+            get errors on `typecheck`, but make sure to warn others about it if you do and can't fix them.
