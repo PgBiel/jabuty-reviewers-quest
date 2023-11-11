@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-from .app_def import app
-from .api import register_api
 from flask import render_template
+
+from .api import register_api
+from .app_def import app
 
 register_api()
 

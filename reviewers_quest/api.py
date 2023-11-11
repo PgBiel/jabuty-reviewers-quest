@@ -1,9 +1,10 @@
 """API routes for the frontend to interact with."""
 import typing
 
+from flask import abort
+
 from .app_def import app
 from .db import Game, model_to_dict
-from flask import abort
 
 
 def register_api() -> None:
