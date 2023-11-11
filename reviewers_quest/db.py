@@ -17,7 +17,7 @@ db: SQLAlchemy = SQLAlchemy(app)
 class Game(db.Model):
     """Represents a game in the database."""
 
-    id = sql.Column(sql.Integer, primary_key=True)
+    game_id = sql.Column(sql.Integer, primary_key=True)
     name = sql.Column(sql.String(256))
     release_year = sql.Column(sql.Integer)
     developer = sql.Column(sql.String(256), nullable=True)
@@ -27,4 +27,4 @@ class Game(db.Model):
     created_at = sql.Column(sql.DateTime(timezone=True), server_default=func.now())
 
     def __repr__(self) -> str:
-        return f"Game(id={self.id}, name={self.name})"
+        return f"Game(id={self.game_id}, name={self.name})"
