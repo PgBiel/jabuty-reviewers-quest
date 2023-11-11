@@ -15,6 +15,7 @@ def register_api() -> None:
 def get_game(game_id: int) -> dict:
     """
     Returns information about a game upon GET.
+
     :param game_id: ID of the game to obtain info from.
     :return: Information about this game, or 404 if there's no game with that ID.
     """
@@ -24,7 +25,5 @@ def get_game(game_id: int) -> dict:
 @app.route("/api/", defaults={"path": ""})
 @app.route("/api/<path:path>")
 def api_catch_all(_path: str) -> typing.Never:
-    """
-    For unknown API routes, always responds with a 404.
-    """
+    """For unknown API routes, always responds with a 404."""
     abort(404, description="No such API endpoint")

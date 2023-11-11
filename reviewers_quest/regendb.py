@@ -5,6 +5,7 @@ from .db import db
 def regen_db() -> None:
     """
     Regenerates the database.
+
     CAUTION: This will DELETE THE EXISTING DATA.
     ONLY RUN THIS IN DEBUG. DO NOT RUN IN PRODUCTION.
     """
