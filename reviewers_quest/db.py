@@ -1,10 +1,13 @@
 """Database operations."""
 
 import os
+import typing
 import sqlalchemy as sql
 from .app import app
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
+from flask_sqlalchemy.model import Model as SqlModel
+from typing import TypeAlias
 
 db_path: str = os.path.abspath(os.environ.get("JABRQ_DATABASE", default="database.db"))
 
@@ -12,9 +15,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath(db_path)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db: SQLAlchemy = SQLAlchemy(app)
+BaseModel: TypeAlias = typing.cast(type[SqlModel], db.Model)
 
 
-def model_to_dict(instance: db.Model) -> dict:
+def model_to_dict(instance: BaseModel) -> dict:
     """
     Converts the given model to a dictionary with its attributes.
 
@@ -24,7 +28,7 @@ def model_to_dict(instance: db.Model) -> dict:
     return {col.key: getattr(instance, col.key) for col in sql.inspect(instance).mapper.column_attrs}
 
 
-class Game(db.Model):
+class Game(BaseModel):
     """Represents a game in the database."""
 
     game_id = sql.Column(sql.Integer, primary_key=True)
