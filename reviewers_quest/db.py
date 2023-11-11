@@ -14,6 +14,16 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db: SQLAlchemy = SQLAlchemy(app)
 
 
+def model_to_dict(instance: db.Model) -> dict:
+    """
+    Converts the given model to a dictionary with its attributes.
+
+    :param instance: The model instance to convert to a dictionary.
+    :return: The converted dictionary.
+    """
+    return {col.key: getattr(instance, col.key) for col in sql.inspect(instance).mapper.column_attrs}
+
+
 class Game(db.Model):
     """Represents a game in the database."""
 
