@@ -1,7 +1,7 @@
 """API routes for the frontend to interact with."""
 import typing
 
-from .app import app
+from .app_def import app
 from .db import Game, model_to_dict
 from flask import abort
 

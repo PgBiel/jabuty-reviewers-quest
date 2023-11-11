@@ -14,7 +14,7 @@ backend_src_dir = "reviewers_quest"
 
 # Runs the app.
 def run() -> None:
-    _execute("python", backend_src_dir + "/app.py")
+    _execute("python", "-m", backend_src_dir)
 
 
 # Formats the backend code.
