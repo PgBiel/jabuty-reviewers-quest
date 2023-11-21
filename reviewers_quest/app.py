@@ -4,7 +4,7 @@ from flask import render_template
 from .app_def import app
 from flask_login import LoginManager
 from .api import register_api
-from .db import db
+from .db import db, User
 
 register_api()
 
@@ -23,14 +23,13 @@ def main() -> None:
     login_manager = LoginManager()
     login_manager.login_view = 'login'
     login_manager.init_app(app)
-
-    app.run()
-
-    from .models import User
+    
     @login_manager.user_loader
     def load_user(user_id):
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
+
+    app.run()
 
 
 if __name__ == "__main__":
