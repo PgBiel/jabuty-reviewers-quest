@@ -5,6 +5,7 @@ import typing
 from typing import TypeAlias
 
 import sqlalchemy as sql
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from flask_sqlalchemy.model import Model as SqlModel
 from sqlalchemy import func
@@ -44,3 +45,14 @@ class Game(BaseModel):
 
     def __repr__(self) -> str:
         return f"Game(id={self.game_id}, name={self.name})"
+
+
+class User(UserMixin, BaseModel):
+    id = sql.Column(sql.Integer, primary_key=True)
+    email = sql.Column(sql.String(100), unique=True)
+    password = sql.Column(sql.String(100))
+    name = sql.Column(sql.String(1000))
+    created_at = sql.Column(sql.DateTime(timezone=True), server_default=func.now())
+    
+    def __repr__(self) -> str:
+        return f"User(id={self.id}, name={self.name})"
