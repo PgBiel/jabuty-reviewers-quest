@@ -1,15 +1,17 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="12" sm="8" md="6">
+      <v-col cols="12" sm="8" md="6" lg="4">
         <v-card>
-          <v-card-title class="headline">Cadastro de Usuário</v-card-title>
+          <v-card-title class="headline text-center">
+            Create Account
+          </v-card-title>
           <v-card-text>
-            <v-form @submit.prevent>
+            <v-form ref="form" @submit.prevent="registerUser">
               <v-text-field
-                v-model="user.name"
-                label="Name"
                 required
+                v-model="user.username"
+                label="Username"
               ></v-text-field>
               <v-text-field
                 v-model="user.email"
@@ -23,7 +25,12 @@
                 type="password"
                 required
               ></v-text-field>
-              <v-btn type="submit">Cadastrar</v-btn>
+              <v-text-field
+                v-model="user.password_confirmation"
+                label="Confirm Password"
+                type="password"
+              ></v-text-field>
+              <v-btn color="indigo" type="submit" block> Sign Up </v-btn>
             </v-form>
           </v-card-text>
         </v-card>
@@ -31,17 +38,36 @@
     </v-row>
   </v-container>
 </template>
+
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "RegisterUser",
   data() {
     return {
       user: {
-        name: "",
+        username: "",
         email: "",
         password: "",
+        password_confirmation: "",
       },
     };
   },
-  methods: {},
-};
+  methods: {
+    registerUser() {
+      // Send POST request to backend
+      fetch("http://localhost:5000/signup", {
+        method: "POST",
+        body: JSON.stringify(this.user),
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    },
+  },
+});
 </script>
