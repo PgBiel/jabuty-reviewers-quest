@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import RegisterUserView from "../views/RegisterUserView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -19,8 +20,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/register",
     name: "register",
-    component: () =>
-      import(/* webpackChunkName: "register" */ "../views/RegisterView.vue"),
+    component: RegisterUserView,
   },
 ];
 

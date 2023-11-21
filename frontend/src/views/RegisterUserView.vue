@@ -1,15 +1,12 @@
 <template>
-  <div>
-    <h1>Register User</h1>
-    <RegisterUser />
-  </div>
+  <RegisterUser />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
 // Components
-import RegisterUser from "./RegisterUser.vue";
+import RegisterUser from "../components/RegisterUser.vue";
 
 export default defineComponent({
   name: "RegisterView",
