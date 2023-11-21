@@ -53,6 +53,6 @@ class User(UserMixin, BaseModel):
     password = sql.Column(sql.String(100))
     name = sql.Column(sql.String(1000))
     created_at = sql.Column(sql.DateTime(timezone=True), server_default=func.now())
-    
+
     def __repr__(self) -> str:
         return f"User(id={self.id}, name={self.name})"
