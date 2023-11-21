@@ -9,26 +9,29 @@
           <v-card-text>
             <v-form ref="form" @submit.prevent="registerUser">
               <v-text-field
-                required
                 v-model="user.username"
                 label="Username"
+                :rules="rules.usernameRules"
               ></v-text-field>
               <v-text-field
                 v-model="user.email"
                 label="Email"
                 type="email"
-                required
+                :rules="rules.emailRules"
               ></v-text-field>
               <v-text-field
                 v-model="user.password"
                 label="Password"
                 type="password"
-                required
+                :rules="rules.passwordRules"
+                validate-on="submit"
               ></v-text-field>
               <v-text-field
                 v-model="user.password_confirmation"
                 label="Confirm Password"
                 type="password"
+                :rules="[passwordConfirmationRule]"
+                validate-on="lazy submit"
               ></v-text-field>
               <v-btn color="indigo" type="submit" block> Sign Up </v-btn>
             </v-form>
@@ -52,10 +55,37 @@ export default defineComponent({
         password: "",
         password_confirmation: "",
       },
+      rules: {
+        usernameRules: [(v: string) => !!v || "Username is required"],
+        emailRules: [
+          (v: string) => !!v || "Email is required",
+          (v: string) => /.+@.+\..+/.test(v) || "Invalid e-mail.",
+        ],
+        passwordRules: [
+          (v: string) => !!v || "Password is required",
+          (v: string) =>
+            (v && v.length >= 6) || "Password must have 6+ characters",
+          (v: string) =>
+            /(?=.*[A-Z])/.test(v) || "Must have one uppercase character",
+          (v: string) => /(?=.*\d)/.test(v) || "Must have one number",
+        ],
+      },
     };
+  },
+  computed: {
+    passwordConfirmationRule() {
+      return () =>
+        this.user.password === this.user.password_confirmation ||
+        "Password must match";
+    },
   },
   methods: {
     registerUser() {
+      // Validate form
+      const form = this.$refs.form as { isValid: () => boolean };
+      if (!form.isValid) {
+        return;
+      }
       // Send POST request to backend
       fetch("http://localhost:5000/signup", {
         method: "POST",
