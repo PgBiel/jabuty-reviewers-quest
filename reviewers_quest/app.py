@@ -2,8 +2,8 @@
 
 from flask import render_template
 from flask_login import LoginManager
-from .app_def import app
 
+from .app_def import app
 from .api import register_api
 from .db import User
 
@@ -21,14 +21,14 @@ def frontend_catch_all(path: str) -> str:
 def main() -> None:
     """Main function, starts the Flask app."""
 
-    app.config['SECRET_KEY'] = 'reviewers-quest-secret-key'
+    app.config["SECRET_KEY"] = "reviewers-quest-secret-key"
 
     login_manager = LoginManager()
     login_manager.login_view = "login"
     login_manager.init_app(app)
 
     @login_manager.user_loader
-    def load_user(user_id : int):
+    def load_user(user_id: int):
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
 
