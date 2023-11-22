@@ -1,11 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import RegisterUserView from "../views/RegisterUserView.vue";
-<<<<<<< HEAD
 import GameListView from "../views/GameListView.vue";
-=======
-import LoginPageView from '../views/LoginPageView.vue';
->>>>>>> 0966930 (Login front)
 
 const routes: Array<RouteRecordRaw> = [
   {
