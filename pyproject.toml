@@ -34,6 +34,7 @@ select = [
 
 [tool.ruff.lint.isort]
 relative-imports-order = "closest-to-furthest"
+force-to-top = ["app_def"]
 
 [build-system]
 requires = ["poetry-core"]
