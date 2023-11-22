@@ -86,10 +86,17 @@ export default defineComponent({
       if (!form.isValid) {
         return;
       }
+
+      // Format data
+      const formData = new FormData();
+      formData.append("name", this.user.username);
+      formData.append("email", this.user.email);
+      formData.append("password", this.user.password);
+
       // Send POST request to backend
       fetch("http://localhost:5000/signup", {
         method: "POST",
-        body: JSON.stringify(this.user),
+        body: formData,
       })
         .then((response) => {
           console.log(response);
