@@ -33,11 +33,6 @@ def api_catch_all(_path: str) -> typing.Never:
     abort(404, description="No such API endpoint")
 
 
-@app.route("/login")
-def login():
-    return "Login"
-
-
 @app.route("/login", methods=["POST"])
 def login_post():
     # login code goes here
@@ -58,9 +53,6 @@ def login_post():
     return "LOGIN SUCCESFUL"
 
 
-@app.route("/signup")
-def signup():
-    return "Signup"
 
 
 @app.route("/signup", methods=["POST"])
