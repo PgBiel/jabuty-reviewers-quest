@@ -1,30 +1,17 @@
-"""API routes for the frontend to interact with."""
-import typing
-
-from flask import abort, flash, make_response, redirect, request, url_for
+"""/api/user routes."""
+from flask import flash, make_response, redirect, request, url_for
 from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.wrappers.response import Response
 
-from .app_def import app
-from .db import Game, User, db, model_to_dict
+from ..app_def import app
+from ..db import User, db
 
 
-def register_api() -> None:
-    """Registers the API routes."""
+def register_user_api() -> None:
+    """Registers the User API routes."""
 
-    print("API routes registered.")
-
-
-@app.route("/api/games/<int:game_id>")
-def get_game(game_id: int) -> dict:
-    """
-    Returns information about a game upon GET.
-
-    :param game_id: ID of the game to obtain info from.
-    :return: Information about this game, or 404 if there's no game with that ID.
-    """
-    return model_to_dict(Game.query.get_or_404(game_id, "Jogo não encontrado"))
+    print("User API routes registered.")
 
 
 @app.route("/api/user/login", methods=["POST"])
@@ -81,10 +68,3 @@ def logout() -> Response:
     """Endpoint to logout from the current user session."""
     logout_user()
     return make_response("Success", 200)
-
-
-@app.route("/api/", defaults={"path": ""})
-@app.route("/api/<path:path>")
-def api_catch_all(_path: str) -> typing.Never:
-    """For unknown API routes, always responds with a 404."""
-    abort(404, description="No such API endpoint")
