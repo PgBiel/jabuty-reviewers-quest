@@ -48,11 +48,13 @@ class Game(BaseModel):
 
 
 class User(UserMixin, BaseModel):
-    id = sql.Column(sql.Integer, primary_key=True)
+    """Represents a user which can log into the website."""
+
+    user_id = sql.Column(sql.Integer, primary_key=True)
     email = sql.Column(sql.String(100), unique=True)
     password = sql.Column(sql.String(100))
     name = sql.Column(sql.String(1000))
     created_at = sql.Column(sql.DateTime(timezone=True), server_default=func.now())
 
     def __repr__(self) -> str:
-        return f"User(id={self.id}, name={self.name})"
+        return f"User(id={self.user_id}, name={self.name})"
