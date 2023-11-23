@@ -25,10 +25,16 @@ def model_to_dict(instance: BaseModel) -> dict:
     """
     Converts the given model to a dictionary with its attributes.
 
+    Excludes 'created_at' by default.
+
     :param instance: The model instance to convert to a dictionary.
     :return: The converted dictionary.
     """
-    return {col.key: getattr(instance, col.key) for col in sql.inspect(instance).mapper.column_attrs}
+    return {
+        col.key: getattr(instance, col.key)
+        for col in sql.inspect(instance).mapper.column_attrs
+        if col.key != "created_at"
+    }
 
 
 class Game(BaseModel):
