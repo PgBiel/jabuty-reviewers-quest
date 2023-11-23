@@ -1,8 +1,9 @@
 """API routes for the frontend to interact with."""
 import typing
 
-from flask import abort, flash, redirect, request, url_for
+from flask import abort, flash, make_response, redirect, request, url_for
 from flask_login import login_required, login_user, logout_user
+from werkzeug.wrappers.response import Response
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .app_def import app
@@ -26,12 +27,13 @@ def get_game(game_id: int) -> dict:
     return model_to_dict(Game.query.get_or_404(game_id, "Jogo não encontrado"))
 
 
+@app.route("/api/user/login", methods=["POST"])
+def login_post() -> Response:
+    """Endpoint to log in as a user."""
 
-@app.route("/login", methods=["POST"])
-def login_post():
     # login code goes here
     email = request.form.get("email")
-    password = request.form.get("password")
+    password = request.form.get("password") or ""
     remember = bool(request.form.get("remember"))
 
     user = User.query.filter_by(email=email).first()
@@ -44,16 +46,16 @@ def login_post():
 
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
-    return "LOGIN SUCCESFUL"
+    return make_response("Success", 200)
 
 
+@app.route("/api/user", methods=["POST"])
+def signup_post() -> Response:
+    """Endpoint to create a user."""
 
-
-@app.route("/signup", methods=["POST"])
-def signup_post():
     email = request.form.get("email")
     name = request.form.get("name")
-    password = request.form.get("password")
+    password = request.form.get("password") or ""
 
     user = User.query.filter_by(
         email=email
@@ -73,9 +75,10 @@ def signup_post():
     return redirect(url_for("login"))
 
 
-@app.route("/logout")
+@app.route("/api/user/logout")
 @login_required
-def logout():
+def logout() -> None:
+    """Endpoint to logout from the current user session."""
     logout_user()
 
 
@@ -84,4 +87,3 @@ def logout():
 def api_catch_all(_path: str) -> typing.Never:
     """For unknown API routes, always responds with a 404."""
     abort(404, description="No such API endpoint")
-    return "LOGOUT COMPLETE"
