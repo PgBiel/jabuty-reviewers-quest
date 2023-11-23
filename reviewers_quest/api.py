@@ -77,9 +77,10 @@ def signup_post() -> Response:
 
 @app.route("/api/user/logout")
 @login_required
-def logout() -> None:
+def logout() -> Response:
     """Endpoint to logout from the current user session."""
     logout_user()
+    return make_response("Success", 200)
 
 
 @app.route("/api/", defaults={"path": ""})
