@@ -3,8 +3,8 @@ import typing
 
 from flask import abort, flash, make_response, redirect, request, url_for
 from flask_login import login_required, login_user, logout_user
-from werkzeug.wrappers.response import Response
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.wrappers.response import Response
 
 from .app_def import app
 from .db import Game, User, db, model_to_dict
