@@ -26,12 +26,6 @@ def get_game(game_id: int) -> dict:
     return model_to_dict(Game.query.get_or_404(game_id, "Jogo não encontrado"))
 
 
-@app.route("/api/", defaults={"path": ""})
-@app.route("/api/<path:path>")
-def api_catch_all(_path: str) -> typing.Never:
-    """For unknown API routes, always responds with a 404."""
-    abort(404, description="No such API endpoint")
-
 
 @app.route("/login", methods=["POST"])
 def login_post():
@@ -83,4 +77,11 @@ def signup_post():
 @login_required
 def logout():
     logout_user()
+
+
+@app.route("/api/", defaults={"path": ""})
+@app.route("/api/<path:path>")
+def api_catch_all(_path: str) -> typing.Never:
+    """For unknown API routes, always responds with a 404."""
+    abort(404, description="No such API endpoint")
     return "LOGOUT COMPLETE"
