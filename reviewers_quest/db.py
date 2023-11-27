@@ -8,7 +8,7 @@ import sqlalchemy as sql
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from flask_sqlalchemy.model import Model as SqlModel
-from sqlalchemy import func
+from sqlalchemy import func, orm
 
 from .app import app
 
@@ -45,6 +45,7 @@ class Game(BaseModel):
     release_year = sql.Column(sql.Integer)
     developer = sql.Column(sql.String(256), nullable=True)
     publisher = sql.Column(sql.String(256), nullable=True)
+    reviews: orm.Mapped[list["Review"]] = orm.relationship()
 
     # note: the value of 'func.now()' will be determined by SQLite on insertion.
     created_at = sql.Column(sql.DateTime(timezone=True), server_default=func.now())
@@ -61,6 +62,24 @@ class User(UserMixin, BaseModel):
     password = sql.Column(sql.String(100))
     name = sql.Column(sql.String(1000))
     created_at = sql.Column(sql.DateTime(timezone=True), server_default=func.now())
+    reviews: orm.Mapped[list["Review"]] = orm.relationship(back_populates="user")
 
     def __repr__(self) -> str:
         return f"User(id={self.user_id}, name={self.name})"
+
+
+class Review(BaseModel):
+    """Represents a user's review on a specific game."""
+
+    review_id = sql.Column(sql.Integer, primary_key=True)
+    game_id: orm.Mapped[int] = orm.mapped_column(sql.ForeignKey(Game.game_id))
+    author_id: orm.Mapped[int] = orm.mapped_column(sql.ForeignKey(User.user_id))
+    stars = sql.Column(sql.Integer, sql.CheckConstraint("stars >= 0 AND stars <= 5"))
+    body = sql.Column(sql.String(100))
+    user: orm.Mapped[User] = orm.relationship(back_populates="reviews")
+
+    def __repr__(self) -> str:
+        return (
+            f"Review(review_id={self.review_id}, game_id={self.game_id}, author_id={self.author_id}, "
+            f"stars={self.stars}, body={self.body})"
+        )
