@@ -68,6 +68,10 @@ class User(UserMixin, BaseModel):
     created_at = sql.Column(sql.DateTime(timezone=True), server_default=func.now(), nullable=False)
     reviews: orm.Mapped[list["Review"]] = orm.relationship(back_populates="user")
 
+    def get_id(self) -> int:
+        """Overrides UserMixin's get_id. Returns the user's ID."""
+        return typing.cast(int, self.user_id)
+
     def __repr__(self) -> str:
         return f"User(user_id={self.user_id}, name={self.name})"
 
