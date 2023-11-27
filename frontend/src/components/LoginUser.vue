@@ -54,10 +54,16 @@ export default defineComponent({
       if (!form.isValid) {
         return;
       }
+
+      // Format data
+      const formData = new FormData();
+      formData.append("email", this.user.email);
+      formData.append("password", this.user.password);
+
       // Send POST request to backend
       fetch("/api/user/login", {
         method: "POST",
-        body: JSON.stringify(this.user),
+        body: formData,
       })
         .then((response) => {
           if (response.ok) {
