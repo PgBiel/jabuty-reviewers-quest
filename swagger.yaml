@@ -141,10 +141,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/NewUser'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/NewUser'
       responses:
         default:
           description: successful operation
@@ -240,7 +240,7 @@ paths:
       parameters:
         - name: userId
           in: path
-          description: ID of the user to fetch
+          description: ID of the user to update
           required: true
           schema:
             type: integer
@@ -273,7 +273,7 @@ paths:
       parameters:
         - name: userId
           in: path
-          description: ID of the user to fetch
+          description: ID of the user to delete
           required: true
           schema:
             type: integer
@@ -353,35 +353,26 @@ components:
     User:
       type: object
       properties:
-        id:
+        user_id:
           type: integer
           format: int64
           example: 10
-        username:
+        name:
           type: string
           example: theUser
-        firstName:
-          type: string
-          example: John
-        lastName:
-          type: string
-          example: James
         email:
           type: string
-          example: john@email.com
-        password:
-          type: string
-          example: '12345'
-        phone:
-          type: string
-          example: '12345'
-        userStatus:
-          type: integer
-          description: User Status
-          format: int32
-          example: 1
+          example: 'john@email.com'
       xml:
         name: user
+    NewUser:
+      allOf:
+        - $ref: '#/components/schemas/User'
+        - type: object
+          properties:
+            password:
+              type: string
+              example: '12345'
   requestBodies:
     NewReview:
       description: |
