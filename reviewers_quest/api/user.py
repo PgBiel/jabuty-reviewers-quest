@@ -53,13 +53,13 @@ def signup_post() -> Response:
         return redirect(url_for("signup"))
 
     # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method="sha256"))
+    new_user = User(email=email, name=name, password=generate_password_hash(password))
 
     # add the new user to the database
     db.session.add(new_user)
     db.session.commit()
 
-    return redirect(url_for("login"))
+    return make_response("", 200)
 
 
 @app.route("/api/user/logout")
