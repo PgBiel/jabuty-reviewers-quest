@@ -4,7 +4,7 @@
       <v-card>
         <v-card-title class="headline text-center"> Login afre </v-card-title>
         <v-card-text>
-          <v-form ref="form">
+          <v-form ref="form" @submit.prevent="loginUser">
             <v-text-field
               v-model="user.email"
               label="Email"
@@ -16,7 +16,7 @@
               label="Password"
               type="password"
             ></v-text-field>
-            <v-btn color="indigo" type="submit" block> Sign Up </v-btn>
+            <v-btn color="indigo" type="submit" block> Fazer Login </v-btn>
             <div>
               <router-link to="/register">Cadastro</router-link>
             </div>
@@ -48,22 +48,30 @@ export default defineComponent({
     };
   },
   methods: {
-    validateUser() {
+    loginUser() {
       // Validate form
       const form = this.$refs.form as { isValid: () => boolean };
       if (!form.isValid) {
         return;
       }
       // Send POST request to backend
-      fetch("http://localhost:5000/signin", {
+      fetch("/api/user/login", {
         method: "POST",
         body: JSON.stringify(this.user),
       })
         .then((response) => {
-          console.log(response);
+          if (response.ok) {
+            alert("Login efetuado com sucesso.");
+          } else {
+            alert(
+              "Login não pôde ser realizado. Verifique que digitou a senha correta.",
+            );
+          }
         })
-        .catch((error) => {
-          console.error("Error:", error);
+        .catch((_error) => {
+          alert(
+            "Login não pôde ser realizado. Verifique que digitou a senha correta.",
+          );
         });
     },
   },
