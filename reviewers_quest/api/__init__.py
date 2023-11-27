@@ -16,8 +16,8 @@ def register_api() -> None:
     print("API routes registered.")
 
 
-@app.route("/api/", defaults={"path": ""})
-@app.route("/api/<path:path>")
+@app.route("/api/", defaults={"_path": ""})
+@app.route("/api/<path:_path>")
 def api_catch_all(_path: str) -> typing.Never:
     """For unknown API routes, always responds with a 404."""
     abort(404, description="No such API endpoint")
