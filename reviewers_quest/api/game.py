@@ -33,6 +33,5 @@ def get_reviews(game_id: int) -> list[dict]:
     """
     game: Game = Game.query.get_or_404(game_id, "Jogo não encontrado")
     return [
-        model_to_dict(review, keys=("review_id", "game_id", "author_id", "stars", "body"))
-        for review in game.reviews
+        model_to_dict(review, keys=("review_id", "game_id", "author_id", "stars", "body")) for review in game.reviews
     ]
