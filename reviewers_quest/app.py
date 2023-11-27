@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
 
-from flask import render_template
+from flask import redirect, render_template
 from flask_login import LoginManager
+from werkzeug.security import safe_join
+from werkzeug.wrappers.response import Response
 
 from .app_def import app
 from .api import register_api
 from .db import User
 
 register_api()
+
+
+@app.route("/templates/vue/static/vue/<path:filename>")
+def frontend_static_fix(filename: str) -> Response:
+    """Re-route some bad requests from the frontend"""
+    return redirect(safe_join("/static/vue/", filename) or "/static/vue/")
 
 
 @app.route("/", defaults={"path": ""})
