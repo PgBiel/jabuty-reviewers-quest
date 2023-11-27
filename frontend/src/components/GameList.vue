@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card v-for="game in games" :key="game.id" class="game-card">
+    <v-card v-for="game in games" :key="game.game_id" class="game-card">
       <v-row>
         <v-col cols="auto">
           <v-avatar size="200" rounded="0">
@@ -18,13 +18,8 @@
             ></v-rating>
           </v-card-subtitle>
           <v-card-text>
-            <v-chip
-              v-for="genre in game.genres"
-              :key="genre"
-              class="genre-chip"
-              outlined
-            >
-              {{ genre }}
+            <v-chip :key="game.genre" class="genre-chip" outlined>
+              {{ game.genre }}
             </v-chip>
           </v-card-text>
         </v-col>
@@ -34,51 +29,36 @@
 </template>
 
 <script lang="ts">
+import { Game, StarredGame, Review } from "../common/types";
 import { defineComponent } from "vue";
-interface Game {
-  id: number;
-  name: string;
-  image: string;
-  stars: number;
-  genres: string[];
-}
+
 export default defineComponent({
   data() {
     return {
-      games: [] as Game[],
+      games: [] as StarredGame[],
     };
   },
   methods: {
-    getGames() {
-      // Mock data
-      const mockData = [
-        {
-          id: 1,
-          name: "Game 1",
-          image: "https://picsum.photos/1920/1070?random",
-          stars: 4.5,
-          genres: ["Action", "Adventure"],
-        },
-        {
-          id: 2,
-          name: "Game 2",
-          image: "https://picsum.photos/1920/1060?random",
-          stars: 3.8,
-          genres: ["RPG", "Strategy"],
-        },
-        {
-          id: 3,
-          name: "Game 3",
-          image: "https://picsum.photos/1920/1080?random",
-          stars: 5,
-          genres: ["Action", "Adventure", "RPG"],
-        },
-      ];
-      this.games = mockData;
+    async getGames() {
+      const gamesResponse = await fetch("/api/games");
+      const games: Game[] = await gamesResponse.json();
+      const starredGames: StarredGame[] = [];
+      for (const game of games) {
+        const reviewsResponse = await fetch(
+          "/api/game/" + game.game_id + "/reviews",
+        );
+        const reviews: Review[] = await reviewsResponse.json();
+        const totalStars = reviews
+          .map((review) => review.stars)
+          .reduce((previous, current) => previous + current, 0);
+        const averageStars = totalStars / reviews.length;
+        const starredGame: StarredGame = { stars: averageStars, ...game };
+        starredGames.push(starredGame);
+      }
+      this.games = starredGames;
     },
   },
   created() {
-    console.log("GameList created");
     this.getGames();
   },
 });
