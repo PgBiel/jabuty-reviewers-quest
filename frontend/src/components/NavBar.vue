@@ -12,12 +12,16 @@
           <v-btn>Trending</v-btn>
         </v-col>
         <v-col cols="3" lg="2" class="ml-auto">
-          <v-text-field
+          <v-combobox
             v-model="search"
-            placeholder="Search"
-            append-inner-icon="mdi-magnify"
+            :items="games"
+            item-text="name"
+            item-value="id"
+            label="Search"
             hide-details
-          ></v-text-field>
+            clearable
+            @input="searchGames"
+          ></v-combobox>
         </v-col>
         <v-col cols="auto" class="ml-auto">
           <v-icon>mdi-account-circle</v-icon>
@@ -28,11 +32,35 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+export default defineComponent({
   data() {
     return {
       search: "",
+      // Mock data
+      games: [
+        "God of War",
+        "The Last of Us",
+        "Uncharted",
+        "The Witcher",
+        "Red Dead Redemption",
+        "Horizon Zero Dawn",
+        "Bloodborne",
+        "Persona 5",
+        "League of Legends",
+        "Valorant",
+        "Counter Strike",
+        "Overwatch",
+        "Undertale",
+        "Outer Wilds",
+        "Hollow Knight",
+      ],
     };
   },
-};
+  methods: {
+    searchGames() {
+      console.log(this.search);
+    },
+  },
+});
 </script>
