@@ -312,6 +312,9 @@ components:
         developer:
           type: string
           example: Mobius Games
+        genre:
+          type: string
+          example: Space Exploration
     Review:
       type: object
       properties:
