@@ -9,6 +9,13 @@ def register_game_api() -> None:
     print("Game API routes registered.")
 
 
+@app.route("/api/games")
+def get_games() -> list[dict]:
+    """Gets a list of games."""
+    # TODO: Add filter param for search (check swagger.yaml for the spec for this endpoint)
+    return [game_to_dict(game) for game in Game.query.all()]
+
+
 @app.route("/api/game/<int:game_id>")
 def get_game(game_id: int) -> dict:
     """
@@ -17,10 +24,7 @@ def get_game(game_id: int) -> dict:
     :param game_id: ID of the game to obtain info from.
     :return: Information about this game, or 404 if there's no game with that ID.
     """
-    return model_to_dict(
-        Game.query.get_or_404(game_id, "Jogo não encontrado"),
-        keys=("game_id", "name", "image", "release_year", "publisher", "developer", "genre"),
-    )
+    return game_to_dict(Game.query.get_or_404(game_id, "Jogo não encontrado"))
 
 
 @app.route("/api/game/<int:game_id>/reviews")
@@ -35,3 +39,16 @@ def get_reviews(game_id: int) -> list[dict]:
     return [
         model_to_dict(review, keys=("review_id", "game_id", "author_id", "stars", "body")) for review in game.reviews
     ]
+
+
+def game_to_dict(game: Game) -> dict:
+    """
+    Converts a Game instance to a dict with properties exposed by the API.
+
+    :param game: The game to convert to a dict.
+    :return A dictionary with the public properties of Game.
+    """
+    return model_to_dict(
+        game,
+        keys=("game_id", "name", "image", "release_year", "publisher", "developer", "genre"),
+    )
