@@ -54,7 +54,7 @@ class Game(BaseModel):
     created_at = sql.Column(sql.DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     def __repr__(self) -> str:
-        return f"Game(id={self.game_id}, name={self.name})"
+        return f"Game(game_id={self.game_id}, name={self.name})"
 
 
 class User(UserMixin, BaseModel):
@@ -84,5 +84,5 @@ class Review(BaseModel):
     def __repr__(self) -> str:
         return (
             f"Review(review_id={self.review_id}, game_id={self.game_id}, author_id={self.author_id}, "
-            f"stars={self.stars}, body={self.body})"
+            f"stars={self.stars}, body={self.body!r})"
         )
