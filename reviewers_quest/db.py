@@ -47,6 +47,7 @@ class Game(BaseModel):
     release_year = sql.Column(sql.Integer)
     developer = sql.Column(sql.String(256), nullable=True)
     publisher = sql.Column(sql.String(256), nullable=True)
+    genre = sql.Column(sql.String(256))
     reviews: orm.Mapped[list["Review"]] = orm.relationship()
 
     # note: the value of 'func.now()' will be determined by SQLite on insertion.
