@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 import RegisterUserView from "../views/RegisterUserView.vue";
 import GameListView from "../views/GameListView.vue";
 
@@ -7,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: GameListView,
   },
   {
     path: "/about",
