@@ -94,15 +94,15 @@ export default defineComponent({
       formData.append("password", this.user.password);
 
       // Send POST request to backend
-      fetch("http://localhost:5000/signup", {
+      fetch("/api/user", {
         method: "POST",
         body: formData,
       })
-        .then((response) => {
-          console.log(response);
+        .then((_response) => {
+          alert("Sucesso!");
         })
-        .catch((error) => {
-          console.error("Error:", error);
+        .catch((_error) => {
+          alert("Não foi possível realizar o cadastro.");
         });
     },
   },
