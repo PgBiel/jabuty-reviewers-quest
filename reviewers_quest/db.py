@@ -2,6 +2,7 @@
 
 import os
 import typing
+from collections.abc import Collection
 from typing import TypeAlias
 
 import sqlalchemy as sql
@@ -21,19 +22,20 @@ db: SQLAlchemy = SQLAlchemy(app)
 BaseModel: TypeAlias = typing.cast(type[SqlModel], db.Model)
 
 
-def model_to_dict(instance: BaseModel) -> dict:
+def model_to_dict(instance: BaseModel, *, keys: Collection[str] | None = None) -> dict:
     """
     Converts the given model to a dictionary with its attributes.
 
     Excludes 'created_at' by default.
 
     :param instance: The model instance to convert to a dictionary.
+    :param keys: The keys to include in the dict, or None for all (bar 'created_at').
     :return: The converted dictionary.
     """
     return {
         col.key: getattr(instance, col.key)
         for col in sql.inspect(instance).mapper.column_attrs
-        if col.key != "created_at"
+        if (keys is not None and col.key in keys) or (keys is None and col.key != "created_at")
     }
 
 

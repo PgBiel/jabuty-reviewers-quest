@@ -17,4 +17,7 @@ def get_game(game_id: int) -> dict:
     :param game_id: ID of the game to obtain info from.
     :return: Information about this game, or 404 if there's no game with that ID.
     """
-    return model_to_dict(Game.query.get_or_404(game_id, "Jogo não encontrado"))
+    return model_to_dict(
+        Game.query.get_or_404(game_id, "Jogo não encontrado"),
+        keys=("game_id", "name", "release_year", "publisher", "developer"),
+    )
