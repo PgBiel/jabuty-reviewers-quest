@@ -44,6 +44,7 @@ class Game(BaseModel):
 
     game_id = sql.Column(sql.Integer, primary_key=True)
     name = sql.Column(sql.String(256), nullable=False)
+    image = sql.Column(sql.String(256), nullable=False)
     release_year = sql.Column(sql.Integer, nullable=False)
     developer = sql.Column(sql.String(256), nullable=False)
     publisher = sql.Column(sql.String(256), nullable=False)
