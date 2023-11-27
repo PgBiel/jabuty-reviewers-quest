@@ -302,6 +302,9 @@ components:
         name:
           type: string
           example: Outer Wilds
+        image:
+          type: string
+          example: 'https://some.image.dot.com/some.image.png'
         release_year:
           type: integer
           format: int64
