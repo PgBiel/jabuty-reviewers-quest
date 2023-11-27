@@ -19,7 +19,7 @@ def get_game(game_id: int) -> dict:
     """
     return model_to_dict(
         Game.query.get_or_404(game_id, "Jogo não encontrado"),
-        keys=("game_id", "name", "release_year", "publisher", "developer", "genre"),
+        keys=("game_id", "name", "image", "release_year", "publisher", "developer", "genre"),
     )
 
 
