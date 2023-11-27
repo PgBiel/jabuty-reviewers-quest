@@ -65,7 +65,7 @@ class User(UserMixin, BaseModel):
     reviews: orm.Mapped[list["Review"]] = orm.relationship(back_populates="user")
 
     def __repr__(self) -> str:
-        return f"User(id={self.user_id}, name={self.name})"
+        return f"User(user_id={self.user_id}, name={self.name})"
 
 
 class Review(BaseModel):
