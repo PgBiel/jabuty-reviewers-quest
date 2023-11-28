@@ -66,7 +66,7 @@ class User(UserMixin, BaseModel):
     password = sql.Column(sql.String(100), nullable=False)
     name = sql.Column(sql.String(1000), nullable=False)
     bio = sql.Column(sql.String(10000), nullable=True)
-    interesses = sql.Column(sql.String(100), nullable=True)
+    interests = sql.Column(sql.String(100), nullable=True)
     created_at = sql.Column(sql.DateTime(timezone=True), server_default=func.now(), nullable=False)
     reviews: orm.Mapped[list["Review"]] = orm.relationship(back_populates="user")
 
