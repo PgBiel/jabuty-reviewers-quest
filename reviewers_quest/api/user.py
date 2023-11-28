@@ -5,7 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.wrappers.response import Response
 
 from ..app_def import app
-from ..db import User, db
+from ..db import User, model_to_dict
 
 
 def register_user_api() -> None:
@@ -68,3 +68,25 @@ def logout() -> Response:
     """Endpoint to logout from the current user session."""
     logout_user()
     return make_response("Success", 200)
+
+@app.route("/api/user/<int:user_id>")
+def get_user(user_id: int) -> dict:
+    """
+    Returns information about a user upon GET.
+
+    :param user_id: ID of the game to obtain info from.
+    :return: Information about this user, or 404 if there's no user with that ID.
+    """
+    return user_to_dict(User.query.get_or_404(user_id, "Usuário não encontrado"))
+
+def user_to_dict(user: User) -> dict:
+    """
+    Converts a Game instance to a dict with properties exposed by the API.
+
+    :param game: The game to convert to a dict.
+    :return A dictionary with the public properties of Game.
+    """
+    return model_to_dict(
+        user,
+        keys=("user_id", "name", "bio", "interesses", "reviews"),
+    )
