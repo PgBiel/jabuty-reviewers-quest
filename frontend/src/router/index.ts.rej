@@ -1,0 +1,13 @@
+diff a/frontend/src/router/index.ts b/frontend/src/router/index.ts	(rejected hunks)
+@@ -1,7 +1,11 @@
+  import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+  import HomeView from "../views/HomeView.vue";
+  import RegisterUserView from "../views/RegisterUserView.vue";
+++<<<<<<< HEAD
+ +import GameListView from "../views/GameListView.vue";
+++=======
++ import LoginPageView from '../views/LoginPageView.vue';
+++>>>>>>> 0966930 (Login front)
+  
+  const routes: Array<RouteRecordRaw> = [
+    {
