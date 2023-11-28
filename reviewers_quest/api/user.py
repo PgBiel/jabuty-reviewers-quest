@@ -90,5 +90,5 @@ def user_to_dict(user: User) -> dict:
     """
     return model_to_dict(
         user,
-        keys=("user_id", "name", "bio", "interesses", "reviews"),
+        keys=("user_id", "name", "bio", "interests", "reviews"),
     )
