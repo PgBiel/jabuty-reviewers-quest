@@ -21,6 +21,7 @@
             hide-details
             clearable
             @input="searchGames"
+            @update:modelValue="gameSelected"
           ></v-combobox>
         </v-col>
         <v-col cols="auto" class="ml-auto">
@@ -43,7 +44,6 @@ export default defineComponent({
   },
   methods: {
     searchGames() {
-      console.log(this.search);
       const filter = this.search ? this.search : "";
       fetch(`api/games?filter=${filter}&amount=10`)
         .then((response) => response.json())
@@ -53,6 +53,11 @@ export default defineComponent({
         .catch((error) => {
           console.error("Error:", error);
         });
+    },
+    gameSelected(game: string) {
+      if (typeof game === "object" && game !== null) {
+        this.$router.push(`/game/${(game as Game).game_id}`);
+      }
     },
   },
   created() {
