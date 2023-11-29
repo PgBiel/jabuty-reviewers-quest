@@ -1,4 +1,6 @@
 """/api/game routes."""
+from flask import request
+
 from ..app_def import app
 from ..db import Game, model_to_dict
 
@@ -12,8 +14,11 @@ def register_game_api() -> None:
 @app.route("/api/games")
 def get_games() -> list[dict]:
     """Gets a list of games."""
-    # TODO: Add filter param for search (check swagger.yaml for the spec for this endpoint)
-    return [game_to_dict(game) for game in Game.query.all()]
+    name_filter = request.args.get("filter", default="")
+    amount = request.args.get("amount", default=50, type=int)
+
+    games = Game.query.filter(Game.name.ilike(f"%{name_filter}%")).limit(amount).all()
+    return [game_to_dict(game) for game in games]
 
 
 @app.route("/api/game/<int:game_id>")
