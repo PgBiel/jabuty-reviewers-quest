@@ -83,9 +83,9 @@ def get_user(user_id: int) -> dict:
 
 def user_to_dict(user: User) -> dict:
     """
-    Converts a Game instance to a dict with properties exposed by the API.
+    Converts a User instance to a dict with properties exposed by the API.
 
-    :param game: The game to convert to a dict.
+    :param user: The user to convert to a dict.
     :return A dictionary with the public properties of Game.
     """
     return model_to_dict(
