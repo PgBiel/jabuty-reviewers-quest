@@ -15,8 +15,8 @@
           <v-combobox
             v-model="search"
             :items="games"
-            item-text="name"
-            item-value="id"
+            item-title="name"
+            item-value="game_id"
             label="Search"
             hide-details
             clearable
@@ -32,35 +32,31 @@
 </template>
 
 <script lang="ts">
+import { Game } from "../common/types";
 import { defineComponent } from "vue";
 export default defineComponent({
   data() {
     return {
       search: "",
-      // Mock data
-      games: [
-        "God of War",
-        "The Last of Us",
-        "Uncharted",
-        "The Witcher",
-        "Red Dead Redemption",
-        "Horizon Zero Dawn",
-        "Bloodborne",
-        "Persona 5",
-        "League of Legends",
-        "Valorant",
-        "Counter Strike",
-        "Overwatch",
-        "Undertale",
-        "Outer Wilds",
-        "Hollow Knight",
-      ],
+      games: [] as Game[],
     };
   },
   methods: {
     searchGames() {
       console.log(this.search);
+      const filter = this.search ? this.search : "";
+      fetch(`api/games?filter=${filter}&amount=10`)
+        .then((response) => response.json())
+        .then((data) => {
+          this.games = data;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     },
+  },
+  created() {
+    this.searchGames();
   },
 });
 </script>
