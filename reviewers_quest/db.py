@@ -11,7 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_sqlalchemy.model import Model as SqlModel
 from sqlalchemy import func, orm
 
-from .app import app
+from .app_def import app
 
 db_path: str = os.path.abspath(os.environ.get("JABRQ_DATABASE", default="database.db"))
 
