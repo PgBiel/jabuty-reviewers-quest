@@ -50,7 +50,7 @@ def populatedb() -> None:
         )
         game2 = Game(
             name="Celeste",
-            image="https://cdn.cloudflare.steamstatic.com/steam/apps/504230/header.jpg?t=1701122042",
+            image="https://image.api.playstation.com/cdn/UP2120/CUSA11302_00/qHx7zoFGNn6BUHUOk2jSfBck2Zzbjulw.png",
             release_year=2018,
             developer="Extremely OK Games, Ltd.",
             publisher="Maddy Makes Games Inc.",
