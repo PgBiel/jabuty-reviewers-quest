@@ -1,8 +1,12 @@
 """/api/game routes."""
+import typing
+
 from flask import request
+from flask_login import UserMixin, current_user, login_required
+from werkzeug.exceptions import BadRequest
 
 from ..app_def import app
-from ..db import Game, model_to_dict
+from ..db import Game, Review, db, model_to_dict
 
 
 def register_game_api() -> None:
@@ -44,6 +48,33 @@ def get_reviews(game_id: int) -> list[dict]:
     return [
         model_to_dict(review, keys=("review_id", "game_id", "author_id", "stars", "body")) for review in game.reviews
     ]
+
+
+@app.route("/api/game/<int:game_id>/reviews", methods=["POST"])
+@login_required
+def create_review(game_id: int) -> str:
+    """
+    POST endpoint to create a review as the logged in user.
+
+    :param game_id: ID of the game to create a review for.
+    :return:
+    """
+    if "stars" not in request.form or "body" not in request.form:
+        raise BadRequest("Expected 'stars' and 'body' fields in review data")
+
+    Game.query.get_or_404(game_id, "No game with that ID")
+    author_id = typing.cast(current_user, UserMixin).get_id()
+    stars = request.form.get("stars")
+    body = request.form.get("body")
+    if not isinstance(stars, int):
+        raise BadRequest("Expected 'stars' to be an integer")
+    if not isinstance(body, str):
+        raise BadRequest("Expected 'body' to be a string")
+
+    session = db.session()
+    session.add(Review(author_id=author_id, game_id=game_id, stars=stars, body=body[:10000]))
+    session.commit()
+    return "Success"
 
 
 def game_to_dict(game: Game) -> dict:
