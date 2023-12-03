@@ -26,11 +26,16 @@ Reviewer's Quest (Jabuty's project)
 
 5. Run `poetry run app` in the root of the project to start the app.
 
+### Populating the database with sample data
+
+Run `poetry run populatedb` after the database has been created (see above) to populate the database with sample data,
+including sample games, users and reviews.
+
 ### A note on the database's location
 
-For `poetry run app` and `poetry run regendb`, you can specify the environment variable `JABRQ_DATABASE=/some/path.db`
-to override where the app will look for / create `database.db` (by default, it's at the same directory at which you run
-the command in question).
+For `poetry run app`, `poetry run regendb` and `poetry run populatedb`, you can specify the environment variable
+`JABRQ_DATABASE=/some/path.db` to override where the app will look for / create `database.db` (by default, it's at the
+same directory at which you run the command in question).
 
 For instance, running the command below will
 run the app assuming the database is located
