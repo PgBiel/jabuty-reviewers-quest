@@ -18,6 +18,7 @@ format = "scripts:format"
 check = "scripts:check"
 typecheck = "scripts:typecheck"
 regendb = "scripts:regendb"
+populatedb = "scripts:populatedb"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.4"
