@@ -24,8 +24,33 @@
             @update:modelValue="gameSelected"
           ></v-combobox>
         </v-col>
-        <v-col cols="auto" class="ml-auto">
-          <v-icon>mdi-account-circle</v-icon>
+        <v-col cols="auto">
+          <v-menu v-if="user">
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" icon>
+                <v-icon>mdi-account-circle</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title class="text-center">
+                  {{ user.name }}
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-btn
+                  :to="{ name: 'profile', params: { userId: user.id } }"
+                  elevation="0"
+                >
+                  Profile
+                </v-btn>
+              </v-list-item>
+              <v-list-item>
+                <v-btn elevation="0">Logout</v-btn>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-btn v-else to="/login" variant="outlined">Login</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -40,6 +65,10 @@ export default defineComponent({
     return {
       search: "",
       games: [] as Game[],
+      user: {
+        name: "gamer",
+        id: 1,
+      },
     };
   },
   methods: {
