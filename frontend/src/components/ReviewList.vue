@@ -39,11 +39,7 @@
           >
             Voltar
           </v-btn>
-          <v-btn
-            color="black"
-            variant="text"
-            @click="review_nova.dialog = false"
-          >
+          <v-btn color="black" variant="text" @click="writeReview()">
             Salvar
           </v-btn>
         </v-card-actions>
@@ -114,6 +110,19 @@ export default defineComponent({
     },
     created() {
       this.getReviews();
+    },
+
+    writeReview() {
+      const formData = new FormData();
+      formData.append("body", this.review_nova.text);
+      // Valor de stars passado como str, deve ser convertido
+      formData.append("stars", this.review_nova.rating.toString());
+
+      fetch("/api/game/" + this.$route.params.id + "/reviews", {
+        method: "POST",
+        body: formData,
+      });
+      this.review_nova.dialog = false;
     },
   },
 });
