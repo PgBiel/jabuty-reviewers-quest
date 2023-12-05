@@ -1,4 +1,5 @@
 <template>
+  <NavBar />
   <UserProfile />
 </template>
 
@@ -7,11 +8,13 @@ import { defineComponent } from "vue";
 
 // Components
 import UserProfile from "../components/UserProfile.vue";
+import NavBar from "../components/NavBar.vue";
 
 export default defineComponent({
   name: "UserProfile",
   components: {
     UserProfile,
+    NavBar,
   },
 });
 </script>
