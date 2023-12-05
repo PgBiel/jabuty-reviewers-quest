@@ -3,6 +3,8 @@ import LoginPageView from "../views/LoginPageView.vue";
 import RegisterUserView from "../views/RegisterUserView.vue";
 import GameListView from "../views/GameListView.vue";
 import UserProfileView from "../views/UserProfileView.vue";
+import ReviewListView from "../views/ReviewListView.vue";
+import ReviewList from "../components/ReviewList.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -39,6 +41,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "profile",
     component: UserProfileView,
   },
+  {
+    path: "/reviewlist",
+    name: "reviewlist",
+    component: ReviewListView,
+  },
+  { path: "/gamelist/:id", name: "game_id", component: ReviewList },
 ];
 
 const router = createRouter({
