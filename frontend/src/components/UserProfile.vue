@@ -1,39 +1,23 @@
 <template>
-  <v-container align="center" justify="center" fill-height>
-    <v-row justify="space-around">
-      <v-col>
-        <v-card width="400" color="green">
-          <v-img height="200px" src="">
-            <v-app-bar class="mt-8" color="rgba(255,255,255,0)" text>
-            </v-app-bar>
-
-            <v-avatar size="100">
-              <img
-                src="<img src=https://drive.google.com/uc?id=1Hqu-piDnaGiQINi8cT0glG-bOUvKwYgm"
-                alt="User image"
-              />"
-            </v-avatar>
-
-            <v-spacer></v-spacer>
-          </v-img>
-
-          <v-card-text>
-            <v-row justify="start">
-              <v-col cols="auto">
-                <v-btn density="compact" color="purple">{{
-                  user.interesses[0]
-                }}</v-btn>
-              </v-col>
-              <v-col cols="auto">
-                <v-btn density="compact" color="blue">{{
-                  user.interesses[1]
-                }}</v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
+  <v-container>
+    <v-card class="mx-auto" rounded="0">
+      <v-col md="4" class="ml-auto">
+        <v-avatar color="grey" size="150" rounded="0">
+          <v-icon icon="mdi-information"></v-icon>
+        </v-avatar>
       </v-col>
-    </v-row>
+      <v-row md="4" class="mx-4" no-gutters>
+        <v-list-item class="text-black">{{ user.name }}</v-list-item>
+        <v-col></v-col>
+        <v-btn rounded="rounded-lg" color="red"> Logout </v-btn>
+      </v-row>
+      <v-row md="4" class="pl-6 my-3" no-gutters> {{ user.bio }} </v-row>
+      <v-row md="4" class="pl-6 my-4 ga-2" no-gutters>
+        <v-chip color="primary"> {{ user.interesses[0] }} </v-chip>
+        <v-chip color="primary"> {{ user.interesses[1] }} </v-chip>
+        <v-chip color="primary"> {{ user.interesses[2] }} </v-chip>
+      </v-row>
+    </v-card>
   </v-container>
 </template>
 
@@ -44,11 +28,9 @@ export default defineComponent({
   data() {
     return {
       user: {
-        image:
-          "https://drive.google.com/uc?id=1Hqu-piDnaGiQINi8cT0glG-bOUvKwYgm",
         name: "Pepito",
         bio: "I'm flying high defying gravity",
-        interesses: ["RPG", "Aventura"],
+        interesses: ["RPG", "Aventura", "Ação"],
       },
     };
   },
