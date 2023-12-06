@@ -4,6 +4,7 @@ import RegisterUserView from "../views/RegisterUserView.vue";
 import GameListView from "../views/GameListView.vue";
 import UserProfileView from "../views/UserProfileView.vue";
 import ReviewListView from "../views/ReviewListView.vue";
+import TrendingGamesView from "../views/TrendingGamesView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -45,6 +46,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/game/:id",
     name: "game",
     component: ReviewListView,
+  },
+  {
+    path: "/trendinggames",
+    name: "trendinggames",
+    component: TrendingGamesView,
   },
 ];
 
