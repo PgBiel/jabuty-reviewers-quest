@@ -48,8 +48,8 @@ const routes: Array<RouteRecordRaw> = [
     component: ReviewListView,
   },
   {
-    path: "/trendinggames",
-    name: "trendinggames",
+    path: "/trending",
+    name: "trending",
     component: TrendingGamesView,
   },
 ];
