@@ -26,9 +26,8 @@ def get_games() -> list[dict]:
 
 
 # take second element for sort
-def takeSecond(elem):
+def take_second(elem : tuple) -> int:
         return elem[1]
-
 
 @app.route("/api/trending_games")
 def get_trending_games() -> list[dict]:
@@ -37,18 +36,16 @@ def get_trending_games() -> list[dict]:
     trending_games = []
     for game in games:
         stars = 0
-        reviewAmt = 0
+        review_amt = 0
         for review in games.reviews:
             stars += review.stars
-            reviewAmt+=1
+            review_amt+=1
+        stars /= review_amt
+        trending_games.append(tuple((game, stars)))
 
-
-    stars /= reviewAmt
-    trending_games.append(tuple((game, stars)))
-
-
-    trending_games.sort(key=takeSecond)
+    trending_games.sort(key=take_second)
     return [game_to_dict(game) for game in trending_games]
+
 
 @app.route("/api/game/<int:game_id>")
 def get_game(game_id: int) -> dict:
