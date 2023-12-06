@@ -7,7 +7,9 @@ export interface Game {
   publisher: string;
   genre: string;
 }
-
+export interface NamedReview extends Review {
+  author_name: string;
+}
 export interface StarredGame extends Game {
   stars: number;
 }

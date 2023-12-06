@@ -16,20 +16,19 @@
               :readonly="true"
               :half-increments="true"
             ></v-rating>
-            <v-chip>
-              <v-btn
-                color="black"
-                variant="text"
-                @click="$router.push('/game/' + game.game_id)"
-              >
-                Reviews
-              </v-btn>
-            </v-chip>
+            <v-chip> </v-chip>
           </v-card-subtitle>
           <v-card-text>
             <v-chip :key="game.genre" class="genre-chip" outlined>
               {{ game.genre }}
             </v-chip>
+            <v-btn
+              color="black"
+              variant="text"
+              @click="$router.push('/game/' + game.game_id)"
+            >
+              Reviews
+            </v-btn>
           </v-card-text>
         </v-col>
       </v-row>

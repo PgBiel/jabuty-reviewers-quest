@@ -59,6 +59,7 @@
             <v-avatar color="grey">
               <v-icon icon="mdi-account-circle"></v-icon>
             </v-avatar>
+            <v-card-text>{{ review.author_name }}</v-card-text>
           </v-row>
           <v-rating v-model="review.stars"></v-rating>
           <v-card-text>{{ review.body }} </v-card-text>
@@ -70,12 +71,12 @@
 
 <script lang="ts">
 import { JSXComponent } from "vue";
-import { Review } from "../common/types";
+import { NamedReview } from "../common/types";
 import { defineComponent } from "vue";
 export default defineComponent({
   data() {
     return {
-      reviews: [] as Review[],
+      reviews: [] as NamedReview[],
 
       review_nova: {
         dialog: false,
@@ -105,7 +106,7 @@ export default defineComponent({
       const reviewsResponse = await fetch(
         "/api/game/" + this.$route.params.id + "/reviews",
       );
-      const reviews: Review[] = await reviewsResponse.json();
+      const reviews: NamedReview[] = await reviewsResponse.json();
       this.reviews = reviews;
     },
 
