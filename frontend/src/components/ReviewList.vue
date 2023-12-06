@@ -60,20 +60,20 @@
     <v-card
       v-for="review in reviews"
       :key="review.review_id"
-      class="mx-auto"
+      class="mx-auto pa-2 mb-4"
       max-width="500"
     >
       <v-row>
         <v-col cols="auto">
-          <v-img class="align-start text-black" height="200">
-            <v-avatar color="grey">
-              <v-icon icon="mdi-account-circle"></v-icon>
-            </v-avatar>
-            <v-card-text>{{ review.author_name }}</v-card-text>
+          <v-avatar color="grey">
+            <v-icon icon="mdi-account-circle"></v-icon>
+          </v-avatar>
+          <v-card-text class="font-weight-bold">
+            {{ review.author_name }}
+          </v-card-text>
 
-            <v-rating v-model="review.stars"></v-rating>
-            <v-card-text>{{ review.body }} </v-card-text>
-          </v-img>
+          <v-rating readonly v-model="review.stars"></v-rating>
+          <v-card-text>{{ review.body }} </v-card-text>
         </v-col>
       </v-row>
     </v-card>
