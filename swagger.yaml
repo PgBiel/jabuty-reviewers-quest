@@ -206,6 +206,26 @@ paths:
           description: successful operation
         '403':
           description: user not logged in
+  /user/self:
+    get:
+      tags:
+        - user
+      summary: Get the logged in user's info
+      description: ''
+      operationId: getUserSelf
+      parameters: []
+      security:
+        - login_cookie_auth: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '403':
+          description: user not logged in
+
   /user/{userId}:
     get:
       tags:
