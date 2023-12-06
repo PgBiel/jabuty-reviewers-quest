@@ -35,11 +35,11 @@ def get_trending_games() -> list[dict]:
         review_amt = 0
         for review in games.reviews:
             stars += review.stars
-            review_amt+=1
+            review_amt += 1
         stars /= review_amt
         trending_games.append(tuple((game, stars)))
 
-    trending_games.sort(key=lambda elem : elem[1])
+    trending_games.sort(key=lambda elem: elem[1])
     return [game_to_dict(game) for game in trending_games]
 
 
