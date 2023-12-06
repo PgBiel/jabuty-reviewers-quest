@@ -9,7 +9,7 @@
       <v-row md="4" class="mx-4" no-gutters>
         <v-list-item class="text-black">{{ user.name }}</v-list-item>
         <v-col></v-col>
-        <v-btn rounded="rounded-lg" color="red"> Logout </v-btn>
+        <v-btn @click="logout" rounded="rounded-lg" color="red"> Logout </v-btn>
       </v-row>
       <v-row md="4" class="pl-6 my-3" no-gutters> {{ user.bio }} </v-row>
       <v-row md="4" class="pl-6 my-4 ga-2" no-gutters>
@@ -51,6 +51,16 @@ export default defineComponent({
         })
         .catch((error) => {
           console.error("Error:", error);
+        });
+    },
+    logout() {
+      fetch("/api/user/logout")
+        .then((_response) => {
+          alert("Logout efetuado com sucesso");
+          this.getCurrentUser();
+        })
+        .catch((_error) => {
+          alert("Erro ao efetuar logout");
         });
     },
   },
