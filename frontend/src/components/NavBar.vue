@@ -58,15 +58,9 @@
 </template>
 
 <script lang="ts">
-import { Game } from "../common/types";
+import { Game, User } from "../common/types";
 import { defineComponent } from "vue";
-interface User {
-  user_id: number;
-  name: string;
-  bio: string;
-  interests: string;
-  reviews: string;
-}
+
 export default defineComponent({
   data() {
     return {

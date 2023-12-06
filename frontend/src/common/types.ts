@@ -19,3 +19,11 @@ export interface Review {
   stars: number;
   body: string;
 }
+
+export interface User {
+  user_id: number;
+  name: string;
+  bio: string;
+  interests: string;
+  reviews: string;
+}
