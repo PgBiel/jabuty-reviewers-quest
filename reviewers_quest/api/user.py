@@ -1,6 +1,8 @@
 """/api/user routes."""
+import typing
+
 from flask import flash, make_response, redirect, request, url_for
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.wrappers.response import Response
 
@@ -68,6 +70,17 @@ def logout() -> Response:
     """Endpoint to logout from the current user session."""
     logout_user()
     return make_response("Success", 200)
+
+
+@app.route("/api/user/self")
+@login_required
+def get_user_self() -> dict:
+    """
+    Returns information about the current user upon GET.
+
+    :return: Information about the logged-in user.
+    """
+    return user_to_dict(typing.cast(current_user, User))
 
 
 @app.route("/api/user/<int:user_id>")
