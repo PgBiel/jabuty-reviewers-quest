@@ -1,9 +1,8 @@
 """/api/game routes."""
 import contextlib
-import typing
 
 from flask import request
-from flask_login import UserMixin, current_user, login_required
+from flask_login import current_user, login_required
 from werkzeug.exceptions import BadRequest
 
 from ..app_def import app
@@ -64,7 +63,7 @@ def create_review(game_id: int) -> str:
         raise BadRequest("Expected 'stars' and 'body' fields in review data")
 
     Game.query.get_or_404(game_id, "No game with that ID")
-    author_id = typing.cast(current_user, UserMixin).get_id()
+    author_id = current_user.get_id()
     stars = request.form.get("stars")
     body = request.form.get("body")
     if isinstance(stars, str):
