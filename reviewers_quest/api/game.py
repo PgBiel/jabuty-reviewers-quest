@@ -26,13 +26,8 @@ def get_games() -> list[dict]:
 
 
 # take second element for sort
-<<<<<<< HEAD
 def take_second(elem : tuple) -> int:
         return elem[1]
-=======
-def takeSecond(elem):
-    return elem[1]
->>>>>>> cf6a6c9 (trending route)
 
 @app.route("/api/trending_games")
 def get_trending_games() -> list[dict]:
