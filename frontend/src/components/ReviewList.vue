@@ -108,9 +108,6 @@ export default defineComponent({
       const reviews: Review[] = await reviewsResponse.json();
       this.reviews = reviews;
     },
-    created() {
-      this.getReviews();
-    },
 
     writeReview() {
       const formData = new FormData();
@@ -121,9 +118,14 @@ export default defineComponent({
       fetch("/api/game/" + this.$route.params.id + "/reviews", {
         method: "POST",
         body: formData,
+      }).then((_response) => {
+        this.review_nova.dialog = false;
+        this.getReviews();
       });
-      this.review_nova.dialog = false;
     },
+  },
+  created() {
+    this.getReviews();
   },
 });
 </script>
