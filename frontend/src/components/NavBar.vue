@@ -46,7 +46,7 @@
                 </v-btn>
               </v-list-item>
               <v-list-item>
-                <v-btn elevation="0">Logout</v-btn>
+                <v-btn @click="logout" elevation="0">Logout</v-btn>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -91,6 +91,16 @@ export default defineComponent({
       if (typeof game === "object" && game !== null) {
         this.$router.push(`/game/${(game as Game).game_id}`);
       }
+    },
+    logout() {
+      fetch("/api/user/logout")
+        .then((_response) => {
+          alert("Logout efetuado com sucesso");
+          this.getCurrentUser();
+        })
+        .catch((_error) => {
+          alert("Erro ao efetuar logout");
+        });
     },
     getCurrentUser() {
       fetch("/api/user/self")
