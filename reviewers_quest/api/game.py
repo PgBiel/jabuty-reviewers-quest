@@ -30,7 +30,7 @@ def takeSecond(elem):
         return elem[1]
 
 
-@app.route("/api/games")
+@app.route("/api/trending_games")
 def get_trending_games() -> list[dict]:
     """Gets a list of the trending games."""
     games = Game.all()
