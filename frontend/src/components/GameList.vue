@@ -45,11 +45,17 @@ export default defineComponent({
   data() {
     return {
       games: [] as StarredGame[],
+      trending: this.isTrending || false,
     };
+  },
+  props: {
+    isTrending: Boolean,
   },
   methods: {
     async getGames() {
-      const gamesResponse = await fetch("/api/games");
+      const gamesResponse = await fetch(
+        this.trending ? "/api/trending_games" : "/api/games",
+      );
       const games: Game[] = await gamesResponse.json();
       const starredGames: StarredGame[] = [];
       for (const game of games) {
