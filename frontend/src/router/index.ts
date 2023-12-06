@@ -39,6 +39,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/profile",
     name: "profile",
     component: UserProfileView,
+    meta: { requiresAuth: true },
   },
   {
     path: "/game/:id",
@@ -50,6 +51,26 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta != null && "requiresAuth" in to.meta && to.meta.requiresAuth) {
+    fetch("/api/user/self")
+      .then((response) => {
+        if (response.ok) {
+          // user logged-in, proceed
+          next();
+        } else {
+          // user not logged-in, please log in
+          next({ name: "login" });
+        }
+      })
+      .catch((error) => {
+        console.error("Couldn't verify user authentication:", error);
+      });
+  } else {
+    next();
+  }
 });
 
 export default router;
