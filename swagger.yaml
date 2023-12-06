@@ -204,8 +204,8 @@ paths:
       responses:
         '200':
           description: successful operation
-        '403':
-          description: user not logged in
+        '401':
+          description: user not logged-in
   /user/self:
     get:
       tags:
@@ -223,8 +223,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        '403':
-          description: user not logged in
+        '401':
+          description: user not logged-in
 
   /user/{userId}:
     get:
@@ -280,8 +280,8 @@ paths:
       responses:
         '200':
           description: successful operation
-        '403':
-          description: unauthorized operation
+        '401':
+          description: user not logged-in
         '404':
           description: no user with that ID found
     delete:
@@ -302,8 +302,8 @@ paths:
       security:
         - login_cookie_auth: []
       responses:
-        '403':
-          description: unauthorized operation
+        '401':
+          description: user not logged-in
         '404':
           description: no user with that ID found
 components:
