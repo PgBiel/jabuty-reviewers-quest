@@ -1,10 +1,18 @@
 <template>
   <v-col justify="start">
+    <Game :game_id="$route.params.id.toString()" />
     <v-dialog v-model="review_nova.dialog" persistent width="1024">
       <template v-slot:activator="{ props }">
-        <v-btn color="black" v-bind="props" @click="verificaLogin()">
-          Escrever Review
-        </v-btn>
+        <v-container class="text-center">
+          <v-btn
+            class="mx-auto"
+            color="black"
+            v-bind="props"
+            @click="verificaLogin()"
+          >
+            Escrever Review
+          </v-btn>
+        </v-container>
       </template>
       <v-card>
         <v-rating v-model="review_nova.rating">
@@ -76,11 +84,11 @@
 import { JSXComponent } from "vue";
 import { NamedReview } from "../common/types";
 import { defineComponent } from "vue";
+import Game from "./Game.vue";
 export default defineComponent({
   data() {
     return {
       reviews: [] as NamedReview[],
-
       review_nova: {
         dialog: false,
         rating: 0,
@@ -112,13 +120,11 @@ export default defineComponent({
       const reviews: NamedReview[] = await reviewsResponse.json();
       this.reviews = reviews;
     },
-
     writeReview() {
       const formData = new FormData();
       formData.append("body", this.review_nova.text);
       // Valor de stars passado como str, deve ser convertido
       formData.append("stars", this.review_nova.rating.toString());
-
       fetch("/api/game/" + this.$route.params.id + "/reviews", {
         method: "POST",
         body: formData,
@@ -137,7 +143,6 @@ export default defineComponent({
           alert("Não foi possível adicionar sua review. Tente novamente.");
         });
     },
-
     verificaLogin() {
       fetch("/api/user/self").then((_response) => {
         if (_response.status === 401) {
@@ -150,5 +155,6 @@ export default defineComponent({
   created() {
     this.getReviews();
   },
+  components: { Game },
 });
 </script>
