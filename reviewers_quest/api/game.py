@@ -1,12 +1,13 @@
 """/api/game routes."""
 import contextlib
+import typing
 
 from flask import request
 from flask_login import current_user, login_required
 from werkzeug.exceptions import BadRequest
 
 from ..app_def import app
-from ..db import Game, Review, db, model_to_dict
+from ..db import Game, Review, User, db, model_to_dict
 
 
 def register_game_api() -> None:
@@ -64,7 +65,11 @@ def get_reviews(game_id: int) -> list[dict]:
     """
     game: Game = Game.query.get_or_404(game_id, "Jogo não encontrado")
     return [
-        model_to_dict(review, keys=("review_id", "game_id", "author_id", "stars", "body")) for review in game.reviews
+        {
+            "author_name": typing.cast(User, review.user).name,
+            **model_to_dict(review, keys=("review_id", "game_id", "author_id", "stars", "body")),
+        }
+        for review in game.reviews
     ]
 
 
