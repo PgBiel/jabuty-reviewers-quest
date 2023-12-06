@@ -61,7 +61,7 @@ export default defineComponent({
       fetch("/api/user/logout")
         .then((_response) => {
           alert("Logout efetuado com sucesso");
-          this.getCurrentUser();
+          this.$router.push("/");
         })
         .catch((_error) => {
           alert("Erro ao efetuar logout");
