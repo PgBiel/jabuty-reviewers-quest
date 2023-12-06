@@ -39,20 +39,11 @@ def get_trending_games() -> list[dict]:
         review_amt = 0
         for review in games.reviews:
             stars += review.stars
-<<<<<<< HEAD
             review_amt+=1
         stars /= review_amt
         trending_games.append(tuple((game, stars)))
 
     trending_games.sort(key=take_second)
-=======
-            reviewAmt += 1
-
-    stars /= reviewAmt
-    trending_games.append(tuple((game, stars)))
-
-    trending_games.sort(key=takeSecond)
->>>>>>> cf6a6c9 (trending route)
     return [game_to_dict(game) for game in trending_games]
 
 
