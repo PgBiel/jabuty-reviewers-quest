@@ -47,25 +47,26 @@
     </v-dialog>
   </v-col>
   <v-container>
-    <v-col justify="center">
-      <v-card
-        v-for="review in reviews"
-        :key="review.review_id"
-        class="mx-auto"
-        max-width="500"
-      >
-        <v-img class="align-start text-black" height="200">
-          <v-row align="end" class="spacer" no-gutters>
+    <v-card
+      v-for="review in reviews"
+      :key="review.review_id"
+      class="mx-auto"
+      max-width="500"
+    >
+      <v-row>
+        <v-col cols="auto">
+          <v-img class="align-start text-black" height="200">
             <v-avatar color="grey">
               <v-icon icon="mdi-account-circle"></v-icon>
             </v-avatar>
             <v-card-text>{{ review.author_name }}</v-card-text>
-          </v-row>
-          <v-rating v-model="review.stars"></v-rating>
-          <v-card-text>{{ review.body }} </v-card-text>
-        </v-img>
-      </v-card>
-    </v-col>
+
+            <v-rating v-model="review.stars"></v-rating>
+            <v-card-text>{{ review.body }} </v-card-text>
+          </v-img>
+        </v-col>
+      </v-row>
+    </v-card>
   </v-container>
 </template>
 
