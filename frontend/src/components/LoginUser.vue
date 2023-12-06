@@ -68,6 +68,7 @@ export default defineComponent({
         .then((response) => {
           if (response.ok) {
             alert("Login efetuado com sucesso.");
+            this.$router.push({ name: "home" });
           } else {
             alert(
               "Login não pôde ser realizado. Verifique que digitou a senha correta.",

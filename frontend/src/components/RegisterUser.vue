@@ -100,9 +100,10 @@ export default defineComponent({
       })
         .then((_response) => {
           alert("Sucesso!");
+          this.$router.push({ name: "login" });
         })
         .catch((_error) => {
-          alert("Não foi possível realizar o cadastro.");
+          alert("Não foi possível realizar o cadastro. Tente novamente.");
         });
     },
   },
