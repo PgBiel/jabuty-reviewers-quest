@@ -11,7 +11,7 @@ import UserProfile from "../components/UserProfile.vue";
 import NavBar from "../components/NavBar.vue";
 
 export default defineComponent({
-  name: "UserProfile",
+  name: "UserProfileView",
   components: {
     UserProfile,
     NavBar,
