@@ -383,9 +383,12 @@ components:
         name:
           type: string
           example: theUser
-        email:
+        bio:
           type: string
-          example: 'john@email.com'
+          example: I am myself.
+        interests:
+          type: string
+          example: Metroidvania
       xml:
         name: user
     NewUser:
