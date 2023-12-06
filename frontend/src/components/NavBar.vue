@@ -11,19 +11,15 @@
           <v-list>
             <v-list-item>
               <v-btn
-                elevation="0"
                 @click="$router.push('/')"
-                :disabled="thisRoute === 'home'"
-                :active="thisRoute === 'home'"
+                :variant="thisRoute === 'home' ? 'outlined' : 'text'"
                 >Home</v-btn
               >
             </v-list-item>
             <v-list-item>
               <v-btn
-                elevation="0"
                 @click="$router.push('/trending')"
-                :disabled="thisRoute === 'trending'"
-                :active="thisRoute === 'trending'"
+                :variant="thisRoute === 'trending' ? 'outlined' : 'text'"
                 >Trending</v-btn
               >
             </v-list-item>
@@ -75,16 +71,14 @@
         <v-col cols="auto" md="2" class="text-center">
           <v-btn
             @click="$router.push('/')"
-            :disabled="thisRoute === 'home'"
-            :active="thisRoute === 'home'"
+            :variant="thisRoute === 'home' ? 'outlined' : 'text'"
             >Home</v-btn
           >
         </v-col>
         <v-col cols="auto" md="2" class="text-center">
           <v-btn
             @click="$router.push('/trending')"
-            :disabled="thisRoute === 'trending'"
-            :active="thisRoute === 'trending'"
+            :variant="thisRoute === 'trending' ? 'outlined' : 'text'"
             >Trending</v-btn
           >
         </v-col>
