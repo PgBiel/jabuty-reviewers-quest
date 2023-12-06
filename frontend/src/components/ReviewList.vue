@@ -2,7 +2,9 @@
   <v-col justify="start">
     <v-dialog v-model="review_nova.dialog" persistent width="1024">
       <template v-slot:activator="{ props }">
-        <v-btn color="black" v-bind="props"> Escrever Review </v-btn>
+        <v-btn color="black" v-bind="props" @click="verificaLogin()">
+          Escrever Review
+        </v-btn>
       </template>
       <v-card>
         <v-rating v-model="review_nova.rating">
@@ -120,9 +122,28 @@ export default defineComponent({
       fetch("/api/game/" + this.$route.params.id + "/reviews", {
         method: "POST",
         body: formData,
-      }).then((_response) => {
-        this.review_nova.dialog = false;
-        this.getReviews();
+      })
+        .then((_response) => {
+          if (_response.status === 401) {
+            // usuário não está logado
+            this.$router.push({ name: "login" });
+          } else {
+            this.review_nova.dialog = false;
+            this.getReviews();
+            alert("Review adicionada!");
+          }
+        })
+        .catch((_error) => {
+          alert("Não foi possível adicionar sua review. Tente novamente.");
+        });
+    },
+
+    verificaLogin() {
+      fetch("/api/user/self").then((_response) => {
+        if (_response.status === 401) {
+          // usuário não está logado
+          this.$router.push({ name: "login" });
+        }
       });
     },
   },
