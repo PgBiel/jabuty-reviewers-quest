@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="user">
     <v-card class="mx-auto" rounded="0">
       <v-col md="4" class="ma-4">
         <v-avatar color="grey" size="150" rounded="0">
@@ -21,16 +21,41 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+interface User {
+  user_id: number;
+  name: string;
+  bio: string;
+  interests: string;
+  reviews: string;
+}
+
 export default defineComponent({
   name: "UserProfile",
   data() {
     return {
-      user: {
-        name: "Pepito",
-        bio: "I'm flying high defying gravity",
-        interests: "RPG",
-      },
+      user: null as User | null,
     };
+  },
+  methods: {
+    getCurrentUser() {
+      fetch("/api/user/self")
+        .then((response) => {
+          if (response.status === 401) {
+            return null;
+          } else {
+            return response.json();
+          }
+        })
+        .then((data) => {
+          this.user = data as User;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    },
+  },
+  created() {
+    this.getCurrentUser();
   },
 });
 </script>
