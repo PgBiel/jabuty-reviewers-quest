@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
+import typing
 
+import werkzeug.exceptions
 from flask import redirect, render_template
 from flask_login import LoginManager
 from werkzeug.security import safe_join
@@ -39,6 +41,10 @@ def main() -> None:
     def load_user(user_id: int) -> User:
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
+
+    @login_manager.unauthorized_handler
+    def unauthorized() -> typing.Never:
+        raise werkzeug.exceptions.Unauthorized("Not logged-in")
 
     app.run()
 
