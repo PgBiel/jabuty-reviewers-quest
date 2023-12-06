@@ -10,10 +10,12 @@
           </template>
           <v-list>
             <v-list-item>
-              <v-btn elevation="0">Reviews</v-btn>
+              <v-btn elevation="0" @click="$router.push('/')">Home</v-btn>
             </v-list-item>
             <v-list-item>
-              <v-btn elevation="0">Trending</v-btn>
+              <v-btn elevation="0" @click="$router.push('/trending')"
+                >Trending</v-btn
+              >
             </v-list-item>
             <v-list-item>
               <v-combobox
@@ -61,10 +63,10 @@
       </v-row>
       <v-row v-else align="center">
         <v-col cols="auto" md="2" class="text-center">
-          <v-btn>Reviews</v-btn>
+          <v-btn @click="$router.push('/')">Home</v-btn>
         </v-col>
         <v-col cols="auto" md="2" class="text-center">
-          <v-btn>Trending</v-btn>
+          <v-btn @click="$router.push('/trending')">Trending</v-btn>
         </v-col>
         <v-col sm="4" md="3" xl="2" class="ml-auto">
           <v-combobox
