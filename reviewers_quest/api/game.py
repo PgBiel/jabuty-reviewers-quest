@@ -29,19 +29,24 @@ def get_games() -> list[dict]:
 @app.route("/api/trending_games")
 def get_trending_games() -> list[dict]:
     """Gets a list of the trending games."""
-    games = Game.all()
+    games = Game.query.all()
     trending_games = []
     for game in games:
         stars = 0
         review_amt = 0
-        for review in games.reviews:
+        for review in game.reviews:
             stars += review.stars
             review_amt += 1
-        stars /= review_amt
+        if review_amt > 0:
+            stars /= review_amt
         trending_games.append(tuple((game, stars)))
 
-    trending_games.sort(key=lambda elem: elem[1])
-    return [game_to_dict(game) for game in trending_games]
+    trending_games.sort(key=lambda elem: elem[1], reverse=True)
+    trending_games_list = []
+    for game in trending_games:
+        trending_games_list.append(game[0])
+
+    return [game_to_dict(game) for game in trending_games_list]
 
 
 @app.route("/api/game/<int:game_id>")
