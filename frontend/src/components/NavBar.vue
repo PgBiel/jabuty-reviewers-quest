@@ -78,7 +78,7 @@ export default defineComponent({
   methods: {
     searchGames() {
       const filter = this.search ? this.search : "";
-      fetch(`api/games?filter=${filter}&amount=10`)
+      fetch(`/api/games?filter=${filter}&amount=10`)
         .then((response) => response.json())
         .then((data) => {
           this.games = data;
