@@ -21,16 +21,16 @@
             <v-chip :key="game.genre" class="genre-chip" outlined>
               {{ game.genre }}
             </v-chip>
-            <v-chip>
-              <v-btn
-                color="black"
-                variant="text"
-                @click="$router.push('/game/' + game.game_id)"
-              >
-                Reviews
-              </v-btn>
-            </v-chip>
           </v-card-text>
+          <v-card-actions>
+            <v-btn
+              color="green"
+              variant="text"
+              @click="$router.push('/game/' + game.game_id)"
+            >
+              Reviews
+            </v-btn>
+          </v-card-actions>
         </v-col>
       </v-row>
     </v-card>
