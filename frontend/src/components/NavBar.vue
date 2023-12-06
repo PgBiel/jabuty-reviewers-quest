@@ -10,10 +10,20 @@
           </template>
           <v-list>
             <v-list-item>
-              <v-btn elevation="0" @click="$router.push('/')">Home</v-btn>
+              <v-btn
+                elevation="0"
+                @click="$router.push('/')"
+                :disabled="thisRoute === 'home'"
+                :active="thisRoute === 'home'"
+                >Home</v-btn
+              >
             </v-list-item>
             <v-list-item>
-              <v-btn elevation="0" @click="$router.push('/trending')"
+              <v-btn
+                elevation="0"
+                @click="$router.push('/trending')"
+                :disabled="thisRoute === 'trending'"
+                :active="thisRoute === 'trending'"
                 >Trending</v-btn
               >
             </v-list-item>
@@ -63,10 +73,20 @@
       </v-row>
       <v-row v-else align="center">
         <v-col cols="auto" md="2" class="text-center">
-          <v-btn @click="$router.push('/')">Home</v-btn>
+          <v-btn
+            @click="$router.push('/')"
+            :disabled="thisRoute === 'home'"
+            :active="thisRoute === 'home'"
+            >Home</v-btn
+          >
         </v-col>
         <v-col cols="auto" md="2" class="text-center">
-          <v-btn @click="$router.push('/trending')">Trending</v-btn>
+          <v-btn
+            @click="$router.push('/trending')"
+            :disabled="thisRoute === 'trending'"
+            :active="thisRoute === 'trending'"
+            >Trending</v-btn
+          >
         </v-col>
         <v-col sm="4" md="3" xl="2" class="ml-auto">
           <v-combobox
@@ -172,6 +192,11 @@ export default defineComponent({
     },
     isSmall() {
       return useDisplay().mobile.value;
+    },
+  },
+  computed: {
+    thisRoute() {
+      return this.$route.name;
     },
   },
   created() {
