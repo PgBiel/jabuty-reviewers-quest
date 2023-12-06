@@ -1,4 +1,5 @@
 """/api/game routes."""
+import contextlib
 import typing
 
 from flask import request
@@ -66,6 +67,10 @@ def create_review(game_id: int) -> str:
     author_id = typing.cast(current_user, UserMixin).get_id()
     stars = request.form.get("stars")
     body = request.form.get("body")
+    if isinstance(stars, str):
+        # ignore parse error (we will error below)
+        with contextlib.suppress(ValueError):
+            stars = int(stars)
     if not isinstance(stars, int):
         raise BadRequest("Expected 'stars' to be an integer")
     if not isinstance(body, str):
