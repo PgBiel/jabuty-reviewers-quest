@@ -82,7 +82,7 @@
 
 <script lang="ts">
 import { JSXComponent } from "vue";
-import { NamedReview } from "../common/types";
+import { Game as IGame, NamedReview } from "../common/types";
 import { defineComponent } from "vue";
 import Game from "./Game.vue";
 export default defineComponent({
@@ -151,8 +151,16 @@ export default defineComponent({
         }
       });
     },
+    defineTitle() {
+      fetch("/api/game/" + this.$route.params.id)
+        .then((response) => response.json())
+        .then((data: IGame) => {
+          document.title = data.name + " | Reviewer's Quest";
+        });
+    },
   },
   created() {
+    this.defineTitle();
     this.getReviews();
   },
   components: { Game },

@@ -1,3 +1,4 @@
+import { nextTick } from "vue";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import LoginPageView from "../views/LoginPageView.vue";
 import RegisterUserView from "../views/RegisterUserView.vue";
@@ -16,32 +17,31 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "login",
     component: LoginPageView,
+    meta: { title: "Login" },
   },
   {
     path: "/register",
     name: "register",
     component: RegisterUserView,
-  },
-  {
-    path: "/gamelist",
-    name: "gamelist",
-    component: GameListView,
+    meta: { title: "Cadastro" },
   },
   {
     path: "/profile",
     name: "profile",
     component: UserProfileView,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, title: "Perfil" },
   },
   {
     path: "/game/:id",
     name: "game",
     component: ReviewListView,
+    meta: { title: "Reviews" },
   },
   {
     path: "/trending",
     name: "trending",
     component: TrendingGamesView,
+    meta: { title: "Trending" },
   },
 ];
 
@@ -68,6 +68,15 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+});
+
+const defaultTitle = "Reviewer's Quest | Jabuty";
+
+router.afterEach((to) => {
+  nextTick(() => {
+    const title = to.meta != null ? to.meta.title : to.meta;
+    document.title = title ? `${title} | Reviewer's Quest` : defaultTitle;
+  });
 });
 
 export default router;
