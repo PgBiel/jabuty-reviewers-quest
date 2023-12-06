@@ -39,7 +39,7 @@
               </v-list-item>
               <v-list-item>
                 <v-btn
-                  :to="{ name: 'profile', params: { userId: user.id } }"
+                  :to="{ name: 'profile', params: { userId: user.user_id } }"
                   elevation="0"
                 >
                   Profile
@@ -60,15 +60,19 @@
 <script lang="ts">
 import { Game } from "../common/types";
 import { defineComponent } from "vue";
+interface User {
+  user_id: number;
+  name: string;
+  bio: string;
+  interests: string;
+  reviews: string;
+}
 export default defineComponent({
   data() {
     return {
       search: "",
       games: [] as Game[],
-      user: {
-        name: "gamer",
-        id: 1,
-      },
+      user: null as User | null,
     };
   },
   methods: {
@@ -83,14 +87,31 @@ export default defineComponent({
           console.error("Error:", error);
         });
     },
-    gameSelected(game: string) {
+    gameSelected(game: string | Game) {
       if (typeof game === "object" && game !== null) {
         this.$router.push(`/game/${(game as Game).game_id}`);
       }
     },
+    getCurrentUser() {
+      fetch("/api/user/self")
+        .then((response) => {
+          if (response.status === 401) {
+            return null;
+          } else {
+            return response.json();
+          }
+        })
+        .then((data) => {
+          this.user = data as User;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    },
   },
   created() {
     this.searchGames();
+    this.getCurrentUser();
   },
 });
 </script>

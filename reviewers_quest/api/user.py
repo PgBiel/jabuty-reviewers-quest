@@ -80,7 +80,7 @@ def get_user_self() -> dict:
 
     :return: Information about the logged-in user.
     """
-    return user_to_dict(typing.cast(current_user, User))
+    return user_to_dict(current_user)
 
 
 @app.route("/api/user/<int:user_id>")
