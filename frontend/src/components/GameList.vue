@@ -1,4 +1,5 @@
 <template>
+  <p class="text-h3 text-center my-4">Reviewer's Quest</p>
   <v-container>
     <v-card v-for="game in games" :key="game.game_id" class="game-card">
       <v-row>
